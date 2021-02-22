@@ -19,6 +19,20 @@ namespace ToyRobotChallenge.Source.Objects.Robot
 
         public bool HasBeenPlaced { get; set; }
 
+        public ToyRobot(Tabletop tabletop)
+        {
+            Tabletop = tabletop;
+            CurrentFacing = Facing.NORTH;
+            CurrentPosition = new Point(0, 0);
+        }
+
+        public ToyRobot(Tabletop tabletop, Facing startingFacing, Point startingPosition)
+        {
+            Tabletop = tabletop;
+            CurrentFacing = startingFacing;
+            CurrentPosition = startingPosition;
+        }
+
         public void Place(int x, int y, Facing facing)
         {
             if (x >= Tabletop.Width || y >= Tabletop.Height || x < 0 || y < 0) return;
@@ -30,6 +44,8 @@ namespace ToyRobotChallenge.Source.Objects.Robot
 
         public void Move()
         {
+            if (!HasBeenPlaced) return;
+
             var newX = CurrentPosition.X;
             var newY = CurrentPosition.Y;
 
@@ -56,6 +72,8 @@ namespace ToyRobotChallenge.Source.Objects.Robot
 
         public void Rotate(Rotation rotation)
         {
+            if (!HasBeenPlaced) return;
+
             var newFacing = 0;
             switch (rotation)
             {
@@ -72,23 +90,10 @@ namespace ToyRobotChallenge.Source.Objects.Robot
 
             CurrentFacing = (Facing)newFacing;
         }
-
-        public ToyRobot(Tabletop tabletop)
-        {
-            Tabletop = tabletop;
-            CurrentFacing = Facing.NORTH;
-            CurrentPosition = new Point(0, 0);
-        }
-
-        public ToyRobot(Tabletop tabletop, Facing startingFacing, Point startingPosition)
-        {
-            Tabletop = tabletop;
-            CurrentFacing = startingFacing;
-            CurrentPosition = startingPosition;
-        }
-
+       
         public string GetReportText()
         {
+            if (!HasBeenPlaced) return string.Empty;
             return $"{CurrentPosition.X},{CurrentPosition.Y},{ Enum.GetName(typeof(Facing), CurrentFacing)}";
         }
     }

@@ -91,5 +91,15 @@ namespace UnitTests
             robot.Rotate(Rotation.Right);
             Assert.AreEqual("0,0,NORTH", robot.GetReportText());
         }
+
+        [TestMethod]
+        public void RobotReportsCorrectly()
+        {
+            var robot = GetRobot();
+            Assert.AreEqual(string.Empty, robot.GetReportText());
+
+            robot.Place(0, 0, Facing.NORTH);
+            Assert.AreEqual("0,0,NORTH", robot.GetReportText());
+        }
     }
 }
