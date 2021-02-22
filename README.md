@@ -2,7 +2,7 @@
 Toy Robot Challenge
 
 Build and run the source in VS2019
-The console reads commands from the user as per spec:
+The console reads the following commands from the user as per spec:
 
 PLACE X,Y, FACING
 MOVE
